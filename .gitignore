@@ -154,3 +154,6 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
+*.sln
+电梯设计/电梯设计.vcxproj
+*.filters
