@@ -152,6 +152,7 @@ void control_2(void)
 		}
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 
 void control_3(void)
@@ -316,6 +317,8 @@ void control_3(void)
 		if (prestate == UP && (aimTempFloor_up != 0 && aimTempFloor_down != 0) && downTime * 5 >= upTime * 6)
 			;
 	}
+=======
+>>>>>>> parent of 6684476... dsf
 =======
 >>>>>>> parent of 6684476... dsf
 }
