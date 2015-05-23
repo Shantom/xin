@@ -71,7 +71,7 @@ void state_trans(void)
 			}
 			else if (aimFloor == curFloor)
 			{
-
+				prestate = PAUSE;
 			}
 		}
 

@@ -32,6 +32,8 @@ int8_t curFloor;
 int8_t aimFloor;
 int8_t isPrtVct;
 int8_t flag_1;
+int8_t flag_2;
+
 
 DWORD WINAPI input_1(LPVOID parameter);
 DWORD WINAPI input_2(LPVOID parameter);

@@ -30,7 +30,7 @@ main()
 	outPtr =&head;
 	prestate = VACANT;
 
-
+	system("color 3f");
 	puts("\t\t\tWelcome to 1513-A elevator");
 	puts("Please select the policy you want to use:");
 	puts("1:First call first use;\t2:No extra effort;");
