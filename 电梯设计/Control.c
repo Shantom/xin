@@ -313,6 +313,6 @@ void control_3(void)
 			aimFloor = aimTempFloor_up;//只有上行命令
 
 		if (prestate == UP && (aimTempFloor_up != 0 && aimTempFloor_down != 0) && downTime * 5 >= upTime * 6)
-
+			;
 	}
 }
