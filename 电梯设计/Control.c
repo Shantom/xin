@@ -54,6 +54,9 @@ void control_2(void)
 		if (flag_2 == 0)
 		{
 			puts("The elevator is vacant.");
+			downCmd[curFloor - 1] = FALSE;
+			innerCmd[curFloor - 1] = FALSE;
+			upCmd[curFloor - 1] = FALSE;
 			flag_2 = 1;
 		}
 		int tempFloor = 0;
@@ -73,7 +76,7 @@ void control_2(void)
 	{
 		int tempFloor = 0;
 		int flag = 0;
-		innerCmd[curFloor - 1] = 0;
+		innerCmd[curFloor - 1] = FALSE;
 		if (prestate == UP)
 		{
 			if (upCmd[curFloor-1] == TRUE)
@@ -81,7 +84,7 @@ void control_2(void)
 
 			//将当前楼层内部命令和外部上行命令去除
 			//innerCmd[curFloor - 1] = 0;
-			upCmd[curFloor-1] = 0;
+			upCmd[curFloor - 1] = FALSE;
 
 			/*检测是否有上行命令*/
 			if (curFloor < MAXFLOOR)//判断不是处于最高层
@@ -118,7 +121,7 @@ void control_2(void)
 
 			//将当前楼层内部命令和外部上行命令去除
 			//innerCmd[curFloor] = 0;
-			downCmd[curFloor-1] = 0;
+			downCmd[curFloor - 1] = FALSE;
 
 			/*检测是否有下行命令*/
 			if (curFloor > 1)
@@ -150,8 +153,9 @@ void control_2(void)
 		}
 		else if (prestate == PAUSE)
 		{
-			upCmd[curFloor - 1] = 0;
-			downCmd[curFloor - 1] = 0;
+			upCmd[curFloor - 1] = FALSE;
+			downCmd[curFloor - 1] = FALSE;
+			aimFloor = 0;
 		}
 	}
 }
@@ -317,5 +321,6 @@ void control_3(void)
 
 		if (prestate == UP && (aimTempFloor_up != 0 && aimTempFloor_down != 0) && downTime * 5 >= upTime * 6)
 
+			;
 	}
 }
