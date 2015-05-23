@@ -28,23 +28,28 @@ struct cmdList *outPtr;
 
 STATE state;
 STATE prestate;
-int8_t curFloor;
-int8_t aimFloor;
+int8_t curFloor;//当前楼层
+int8_t aimFloor;//目标楼层
 int8_t isPrtVct;
 int8_t flag_1;
+int8_t flag_2;
+
 
 DWORD WINAPI input_1(LPVOID parameter);
 DWORD WINAPI input_2(LPVOID parameter);
 
+
+//状态转换函数
 void state_trans(void);
+
+//输出函数
 void print_message(void);
-void control_1(void); 
-<<<<<<< HEAD
-<<<<<<< HEAD
-void control_2(void);
-=======
-void control_2(void);
->>>>>>> parent of 6684476... dsf
-=======
-void control_2(void);
->>>>>>> parent of 6684476... dsf
+
+//判断目标楼层的控制函数
+void control_1(void); //第一策略
+
+void control_2(void);//第二策略
+
+void control_3(void);//第三策略
+
+//void control_4(void);
