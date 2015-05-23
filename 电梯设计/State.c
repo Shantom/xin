@@ -28,7 +28,7 @@ void state_trans(void)
 	case UP:
 		curFloor++;
 		printf("***** Heading for %d *****\n", curFloor);
-		Sleep(500);
+		Sleep(2000);
 
 		if (curFloor == aimFloor)
 		{
@@ -40,7 +40,7 @@ void state_trans(void)
 	case DOWN:
 		curFloor--;
 		printf("***** Heading for %d *****\n", curFloor);
-		Sleep(500);
+		Sleep(2000);
 		if (curFloor == aimFloor)
 		{
 			state = PAUSE;
@@ -51,7 +51,7 @@ void state_trans(void)
 		break;
 	case PAUSE:
 		printf("***** Arrived %d *****\n",curFloor);
-		Sleep(1500);
+		Sleep(5000);
 		if (aimFloor == 0)
 		{
 			state = VACANT;
