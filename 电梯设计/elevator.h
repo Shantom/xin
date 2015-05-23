@@ -40,7 +40,11 @@ void state_trans(void);
 void print_message(void);
 void control_1(void); 
 <<<<<<< HEAD
+<<<<<<< HEAD
 void control_2(void);
+=======
+void control_2(void);
+>>>>>>> parent of 6684476... dsf
 =======
 void control_2(void);
 >>>>>>> parent of 6684476... dsf
