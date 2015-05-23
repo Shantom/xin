@@ -69,6 +69,10 @@ void state_trans(void)
 				state = DOWN;
 				prestate = PAUSE;
 			}
+			else if (aimFloor == curFloor)
+			{
+
+			}
 		}
 
 

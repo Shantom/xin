@@ -28,20 +28,21 @@ main()
 	state = VACANT;
 	ptr = &head;
 	outPtr =&head;
+	prestate = VACANT;
 
 
 	puts("\t\t\tWelcome to 1513-A elevator");
 	puts("Please select the policy you want to use:");
 	puts("1:First call first use;\t2:No extra effort;");
 
-	int policy = getchar();
+	int policy=getchar();
 	fflush(stdin);
 
-	if (policy = '1')
+	if (policy == '1')
 	{
 		CreateThread(0, 0, input_1, NULL, 0, NULL);
 	}
-	else if (policy = '2')
+	else if (policy == '2')
 	{
 		CreateThread(0, 0, input_2, NULL, 0, NULL);
 	}

@@ -8,6 +8,8 @@
 #define UP 2
 #define DOWN 3
 #define PAUSE 4
+#define MAXFLOOR 9
+
 
 struct cmdList{
 	int floor;

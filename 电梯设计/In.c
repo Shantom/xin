@@ -1,6 +1,6 @@
 #include "elevator.h"
 
-DWORD WINAPI input_1(LPVOID parameter)
+DWORD WINAPI input_1(LPVOID parameter) 
 {
 	while (1){
 		char key = getchar();
