@@ -42,7 +42,7 @@ main()
 	{
 		CreateThread(0, 0, input_1, NULL, 0, NULL);
 	}
-	else if (policy == '2')
+	else if (policy == '2'||policy=='3')
 	{
 		CreateThread(0, 0, input_2, NULL, 0, NULL);
 	}
