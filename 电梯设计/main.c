@@ -29,9 +29,14 @@ main()
 	ptr = &head;
 	outPtr =&head;
 	prestate = VACANT;
-	FILE *file = fopen("output.txt", "w");
+	file = fopen("output.txt", "w");
+	if (file == NULL)
+	{
+		perror("file");
+		exit(1);
+	}
 
-	fputs("当前时间\t\t\t电梯状态\t所在楼层\t目标楼层\t运行方向\t停靠时间\t未响应电梯外向上请求\t未响应电梯外向下请求\t未响应电梯内请求\n", file);
+	fputs("当前时间\t电梯状态\t所在楼层\t目标楼层\t运行方向\t停靠时间\t未响应电梯外向上请求\t未响应电梯外向下请求\t未响应电梯内请求\n", file);
 
 	system("color 3f");
 	puts("\t\t\tWelcome to 1513-A elevator");
@@ -50,7 +55,7 @@ main()
 		CreateThread(0, 0, input_2, NULL, 0, NULL);
 	}
 
-	clock_t startTime = clock();
+	startTime = time(NULL);
 	curTime = time(NULL);
 
 	while (1){
@@ -66,6 +71,7 @@ main()
 
 		state_trans(); //根据自动机模型决定此刻电梯的状态 
 		curTime = time(NULL);
-		outToFile(file);
+		if (policy != '2' || state != VACANT)
+			outToFile(file);
 	}
 }

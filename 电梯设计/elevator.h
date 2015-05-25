@@ -35,6 +35,9 @@ int8_t isPrtVct;
 int8_t flag_1;
 int8_t flag_2;
 time_t curTime;
+time_t startTime;
+FILE *file;
+
 
 
 DWORD WINAPI input_1(LPVOID parameter);

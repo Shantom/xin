@@ -107,6 +107,9 @@ DWORD WINAPI input_2(LPVOID parameter)
 		case'L':
 			downCmd[8] = TRUE;
 			break;
+		default:
+			puts("invalid input!");
+			break;
 
 		}
 	}

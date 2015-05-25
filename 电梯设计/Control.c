@@ -11,7 +11,10 @@ void control_1(void)
 	{
 		if (outPtr->next != NULL)
 		{
+			struct cmdList *temp = outPtr;
 			outPtr = outPtr->next;
+			if (temp!=&head)
+			free(temp);//·ÀÖ¹ÄÚ´æÐ¹Â¶
 			if (outPtr != NULL)
 				aimFloor = outPtr->floor;
 			else
@@ -54,6 +57,8 @@ void control_2(void)
 		if (flag_2 == 0)
 		{
 			puts("The elevator is vacant.");
+			outToFile(file);
+
 			downCmd[curFloor - 1] = FALSE;
 			innerCmd[curFloor - 1] = FALSE;
 			upCmd[curFloor - 1] = FALSE;
