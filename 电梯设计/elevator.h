@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <time.h>
+#include <conio.h>
 
 #define STATE int8_t
 #define VACANT 1
