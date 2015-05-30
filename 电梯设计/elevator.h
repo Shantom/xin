@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <time.h>
+#include <conio.h>
 
 #define STATE int8_t
 #define VACANT 1
@@ -33,6 +35,10 @@ int8_t aimFloor;//目标楼层
 int8_t isPrtVct;
 int8_t flag_1;
 int8_t flag_2;
+time_t curTime;
+time_t startTime;
+FILE *file;
+
 
 
 DWORD WINAPI input_1(LPVOID parameter);
@@ -53,3 +59,6 @@ void control_2(void);//第二策略
 void control_3(void);//第三策略
 
 //void control_4(void);
+
+
+void outToFile(FILE *);

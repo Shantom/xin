@@ -157,3 +157,4 @@ $RECYCLE.BIN/
 *.sln
 电梯设计/电梯设计.vcxproj
 *.filters
+电梯设计/output.txt
