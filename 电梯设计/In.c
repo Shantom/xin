@@ -3,8 +3,23 @@
 DWORD WINAPI input_1(LPVOID parameter) 
 {
 	while (1){
-		char key = getchar();
+		char key;
+	input:	key = getchar();
 		fflush(stdin);
+
+		if (isdigit(key) == 0)
+		if (isupper(key) == 0)
+		{
+			puts("Input error!");
+			goto input;
+		}
+		else if (key == 'B' || key == 'C' || key == 'M' || key == 'N' || key == 'V' || key == 'X' || key == 'Z')
+		{
+			puts("Input error!");
+			goto input;
+		}
+
+
 
 		ptr->next = malloc(sizeof(struct cmdList));//在读入一个数之后申请空间
 		ptr = ptr->next;
@@ -51,8 +66,23 @@ DWORD WINAPI input_2(LPVOID parameter)
 {
 	while (1)
 	{
-		char key = getchar();
+		char key;
+	input:	key = getchar();
 		fflush(stdin);
+
+		if (isdigit(key) == 0)
+		if (isupper(key) == 0)
+		{
+			puts("Input error!");
+			goto input;
+		}
+		else if (key == 'B' || key == 'C' || key == 'M' || key == 'N' || key == 'V' || key == 'X' || key == 'Z' )
+		{
+			puts("Input error!");
+			goto input;
+		}
+
+
 		switch (key)
 		{
 		case '1':case '2':case '3':case '4':case '5':case '6':case '7':case '8':case '9':
