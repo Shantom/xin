@@ -30,7 +30,7 @@ void outToFile(FILE *file)
 		strcpy(dir, "STOP");
 
 	fprintf(file, "%8s\t", dir);//运行方向
-	fprintf(file, "%8d\t", 0);//停靠时间暂时没写
+	//fprintf(file, "%8d\t", 0);//停靠时间暂时没写
 
 	int i;
 	for (i = 0; i <= MAXFLOOR-1; ++i){

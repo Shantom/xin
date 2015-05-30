@@ -36,21 +36,24 @@ main()
 		exit(1);
 	}
 
-	fputs("当前时间\t电梯状态\t所在楼层\t目标楼层\t运行方向\t停靠时间\t未响应电梯外向上请求\t未响应电梯外向下请求\t未响应电梯内请求\n", file);
+	fputs("当前时间\t电梯状态\t所在楼层\t目标楼层\t运行方向\t未响应电梯外向上请求\t未响应电梯外向下请求\t未响应电梯内请求\n", file);
 
 	system("color 3f");
 	puts("\t\t\tWelcome to 1513-A elevator");
-	puts("Please select the policy you want to use:");
-	puts("1:First call first use;\n2:No extra effort;\n3:Fastest response;");
+	puts("\t\tPlease select the policy you want to use:");
+	puts("\t\t1:First call first use;\n\t\t2:No extra effort;\n");
 
 	int policy=getchar();
 	fflush(stdin);
+
+	puts("Number 1-9 mean inner commands. \nLetter Q-I mean up commands (1-8),\n S-L mean down commands (2-9)\n");
+	puts("The elevator is in the use.\n");
 
 	if (policy == '1')
 	{
 		CreateThread(0, 0, input_1, NULL, 0, NULL);
 	}
-	else if (policy == '2'||policy=='3')
+	else if (policy == '2')
 	{
 		CreateThread(0, 0, input_2, NULL, 0, NULL);
 	}
