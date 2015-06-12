@@ -62,8 +62,7 @@ main()
 	CreateThread(0, 0, win, NULL, 0, NULL);
 
 	int policy=getchar();
-	fflush(stdin);
-
+	getchar();
 	puts("Number 1-9 mean inner commands. \nLetter Q-I mean up commands (1-8),\n S-L mean down commands (2-9)\n");
 	puts("The elevator is in the use.\n");
 

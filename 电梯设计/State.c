@@ -27,9 +27,12 @@ void state_trans(void)
 		break;
 	case UP:
 		curFloor++;
+		isUpping = 1;
+		tempY = EggGetY(g_eggminiEle);
+		NewTimer(UPPING, 42, f7);
 		printf("***** Heading for %d *****\n", curFloor);
-		Sleep(2000);
-
+		Sleep(INTERVAL_TIME);
+		FreeTimer(UPPING);
 		if (curFloor == aimFloor)
 		{
 			state = PAUSE;
@@ -39,8 +42,12 @@ void state_trans(void)
 		break;
 	case DOWN:
 		curFloor--;
+		isDowning = 1;
+		tempY = EggGetY(g_eggminiEle);
+		NewTimer(DOWNING, 42, f7);
 		printf("***** Heading for %d *****\n", curFloor);
-		Sleep(2000);
+		Sleep(INTERVAL_TIME);
+		FreeTimer(DOWNING);
 		if (curFloor == aimFloor)
 		{
 			state = PAUSE;
@@ -51,7 +58,11 @@ void state_trans(void)
 		break;
 	case PAUSE:
 		printf("***** Arrived %d *****\n",curFloor);
-		Sleep(5000);
+
+		isOpening = 1;
+		NewTimer(OPENING, 30, f7);
+		Sleep(PAUSE_TIME);
+		FreeTimer(OPENING);
 		if (aimFloor == 0)
 		{
 			state = VACANT;

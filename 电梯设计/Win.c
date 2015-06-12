@@ -1,52 +1,52 @@
 #include "elevator.h"
 
-Egg g_eggBG;
-Egg g_eggTitle;
-Egg g_eggDoorL;
-Egg g_eggDoorR;
-Egg g_eggButtonN;
-Egg g_eggButtonUD;
-Egg g_eggWell;
-Egg g_eggminiEle;
-
-int g_x;
-int g_y;
+char singleButton[12];
+Egg g_eggLight[9];
+Egg g_eggUpLight[8];
+Egg g_eggDownLight[8];
+Egg g_egglight;
 
 DWORD WINAPI win(LPVOID parameter)
 {
-	if (!HiWindow("1513-A elevator", 800, 630)){
+	if (!HiWindow("1513-A elevator", 1016, 630)){
 		return 0;
 	}
+
+
 	getchar();
 
 }
 
 void f1()  // 窗口初始化事件
-{	
-	g_eggBG = EggFromBmpEx(0, 0, 800, 630, 0, 0, 0, 0, "BG.bmp", GetColor(255, 255, 255));
+{
+	g_eggBG = EggFromBmpEx(0, 0, 1920, 1080, 0, 0, 0, 0, "BG.bmp", GetColor(255, 255, 255));
 	g_eggTitle = EggFromBmpEx(0, 0, 470, 53, 0, 0, 0, 0, "title.bmp", GetColor(255, 255, 255));
 	g_eggDoorL = EggFromBmpEx(0, 0, 200, 424, 0, 0, 0, 0, "door.bmp", GetColor(255, 255, 255));
 	g_eggDoorR = EggFromBmpEx(0, 0, 200, 424, 0, 0, 0, 0, "door.bmp", GetColor(255, 255, 255));
 	g_eggButtonN = EggFromBmpEx(0, 0, 50, 424, 0, 0, 0, 0, "1-9.bmp", GetColor(255, 255, 255));
 	g_eggButtonUD = EggFromBmpEx(0, 0, 37, 424, 0, 0, 0, 0, "U&D.bmp", GetColor(255, 255, 255));
 	g_eggWell = EggFromBmpEx(0, 0, 37, 424, 0, 0, 0, 0, "well.bmp", GetColor(255, 255, 255));
-	g_eggminiEle = EggFromBmpEx(0, 0, 37, 47, 0, 0, 0, 0, "miniEle.bmp", 0/*GetColor(255, 255, 255)*/);
+	g_eggminiEle = EggFromBmpEx(0, 0, 37, 47, 0, 0, 0, 0, "miniEle.bmp", 0);
+	g_egglight = EggFromBmpEx(0, 0, 67, 424, 0, 0, 0, 0, "light.bmp", GetColor(255, 255, 255));
+	int i;
+	strcpy(singleButton, "light-1.bmp");
 
-//	// 新建两个Egg，并画门。。
-//	g_eggDoorL = EggNew(0, 0, 50, 100);
-//	g_eggDoorR = EggNew(0, 0, 50, 100);
-//
-//	ESetBrush(g_eggDoorL, GetColor(55, 230, 223), 0);
-//	ESetBrush(g_eggDoorR, GetColor(55, 230, 223), 0);
-//
-//	EDrawRect(g_eggDoorL, 0, 0, 50, 100);
-//	EDrawRect(g_eggDoorR, 0, 0, 50, 100);
-//
-//	// 由于未知窗口具体尺寸，两个Egg暂时放在(0, 0)
-//
-//	// 初始化计时器（编号为1，每1000/30秒调用一次f7）
-//	NewTimer(1, 1000 / 30, f7);
-//
+	for (i = 0; i < 9; ++i)
+	{
+		singleButton[6] = i + 1 + '0';
+		g_eggLight[i] = EggFromBmpEx(0, 0, 50, 48, 0, 0, 0, 0, singleButton, 0);
+	}
+	for (i = 0; i < 8; ++i)
+	{
+		g_eggUpLight[i] = EggFromBmpEx(0, 0, 37, 24, 0, 0, 0, 0, "Up-light.bmp", 0);
+	}
+	for (i = 0; i < 8; ++i)
+	{
+		g_eggDownLight[i] = EggFromBmpEx(0, 0, 37, 24, 0, 0, 0, 0, "Down-light.bmp", 0);
+	}
+
+
+
 }
 
 void f2()  // 窗口销毁事件
@@ -70,15 +70,6 @@ void f3()  // 窗口绘图事件
 	// 产生新的画纸
 	paper = NewPaper();
 
-	//// 绘制文字
-	//PDrawTxt(paper, 10, g_y / 2 + 10, "Click on the Screen or Press Space to Prevent Door Closing");
-
-	//if (g_fRequest)
-	//	PDrawTxt(paper, 10, g_y / 2 - 10, "Hey, Open the Door!");
-	//else
-	//	PDrawTxt(paper, 10, g_y / 2 - 10, "Close the Door!");
-
-	//// 把Egg画到纸上
 	EggPaint(paper, g_eggBG);
 	EggPaint(paper, g_eggTitle);
 	EggPaint(paper, g_eggDoorL);
@@ -87,12 +78,31 @@ void f3()  // 窗口绘图事件
 	EggPaint(paper, g_eggButtonUD);
 	EggPaint(paper, g_eggWell);
 	EggPaint(paper, g_eggminiEle);
+	EggPaint(paper, g_egglight);
 
-	//// 打印画纸
+	int i;
+	for (i = 0; i < 9; ++i)
+	{
+		if (innerCmd[i])
+			EggPaint(paper, g_eggLight[i]);
+	}
+	for (i = 0; i < 8; ++i)
+	{
+		if (upCmd[i])
+			EggPaint(paper, g_eggUpLight[i]);
+	}
+	for (i = 0; i < 8; ++i)
+	{
+		if (downCmd[i])
+			EggPaint(paper, g_eggDownLight[i]);
+	}
+
+
+	// 打印画纸
 	PrintPaper(paper);
 
-	//// 释放画纸以避免资源泄漏
-	//FreePaper(paper);
+	// 释放画纸以避免资源泄漏
+	FreePaper(paper);
 }
 
 void f4(int x, int y)  // 窗口大小更新事件
@@ -106,17 +116,93 @@ void f4(int x, int y)  // 窗口大小更新事件
 	EggPlace(g_eggTitle, x / 2 - 235, 35);
 	EggPlace(g_eggDoorL, x / 2 - 200, 120);
 	EggPlace(g_eggDoorR, x / 2, 120);
-	EggPlace(g_eggButtonN, x / 2 + 296, 120);
-	EggPlace(g_eggButtonUD, x / 2 + 259, 120);
-	EggPlace(g_eggWell, x / 2 - 310, 120);
-	EggPlace(g_eggminiEle, x / 2 - 310, 120+8*47-20);
+	EggPlace(g_eggButtonN, x / 2 + 396, 120);
+	EggPlace(g_eggButtonUD, x / 2 + 359, 120);
+	EggPlace(g_eggWell, x / 2 - 410, 120);
+	EggPlace(g_eggminiEle, x / 2 - 410, 120 + 47 * 8);
+	EggPlace(g_egglight, x / 2 - 360, 120);
 
+	int i;
+	for (i = 0; i < 9; ++i)
+	{
+		EggPlace(g_eggLight[i], x / 2 + 396, 120 + 47 *(8 - i));
+	}
+	for (i = 0; i < 8; ++i)
+	{
+		EggPlace(g_eggUpLight[i], x / 2 + 359, 120 + 47 * (8 - i));
+	}
+	for (i = 0; i < 8; ++i)
+	{
+		EggPlace(g_eggDownLight[i], x / 2 + 359, 120 + 47 * (8 - i) + 24);
+	}
 }
 
 void f5(int x, int y)  // 鼠标点击
 {
-	;
-	//g_fRequest = 1;				// 请求开门
+	if (x >= g_x / 2 + 396 && x <= g_x / 2 + 396 + 50)//点到数字
+	{
+		if (y >= 120 + 47 * 0 && y <= 120 + 47 * 1)
+			innerCmd[9 - 1] = TRUE;
+		else if (y >= 120 + 47 * 1 && y <= 120 + 47 * 2)
+			innerCmd[8 - 1] = TRUE;
+		else if (y >= 120 + 47 * 2 && y <= 120 + 47 * 3)
+			innerCmd[7 - 1] = TRUE;
+		else if (y >= 120 + 47 * 3 && y <= 120 + 47 * 4)
+			innerCmd[6 - 1] = TRUE;
+		else if (y >= 120 + 47 * 4 && y <= 120 + 47 * 5)
+			innerCmd[5 - 1] = TRUE;
+		else if (y >= 120 + 47 * 5 && y <= 120 + 47 * 6)
+			innerCmd[4 - 1] = TRUE;
+		else if (y >= 120 + 47 * 6 && y <= 120 + 47 * 7)
+			innerCmd[3 - 1] = TRUE;
+		else if (y >= 120 + 47 * 7 && y <= 120 + 47 * 8)
+			innerCmd[2 - 1] = TRUE;
+		else if (y >= 120 + 47 * 8 && y <= 120 + 47 * 9)
+			innerCmd[1 - 1] = TRUE;
+	}
+	else if (x >= g_x / 2 + 359 && x <= g_x / 2 + 359 + 37)//上按钮
+	{
+		if (y >= 120 + 47 * 0 && y <= 120 + 24 +47 * 0)
+			/*upCmd[9 - 1] = TRUE*/;
+		else if (y >= 120 + 47 * 1 && y <= 120 + 24 +47 * 1)
+			upCmd[8 - 1] = TRUE;
+		else if (y >= 120 + 47 * 2 && y <= 120 + 24 +47 * 2)
+			upCmd[7 - 1] = TRUE;
+		else if (y >= 120 + 47 * 3 && y <= 120 + 24 +47 * 3)
+			upCmd[6 - 1] = TRUE;
+		else if (y >= 120 + 47 * 4 && y <= 120 + 24 +47 * 4)
+			upCmd[5 - 1] = TRUE;
+		else if (y >= 120 + 47 * 5 && y <= 120 + 24 +47 * 5)
+			upCmd[4 - 1] = TRUE;
+		else if (y >= 120 + 47 * 6 && y <= 120 + 24 +47 * 6)
+			upCmd[3 - 1] = TRUE;
+		else if (y >= 120 + 47 * 7 && y <= 120 + 24 +47 * 7)
+			upCmd[2 - 1] = TRUE;
+		else if (y >= 120 + 47 * 8 && y <= 120 + 24 +47 * 8)
+			upCmd[1 - 1] = TRUE;
+
+		else if (y >= 120 + 24 + 47  * 0 && y <= 120 + 47 + 47 * 0)
+			downCmd[9 - 1] = TRUE;
+		else if (y >= 120 + 24 + 47  * 1 && y <= 120 + 47 + 47 * 1)
+			downCmd[8 - 1] = TRUE;
+		else if (y >= 120 + 24 + 47  * 2 && y <= 120 + 47 + 47 * 2)
+			downCmd[7 - 1] = TRUE;
+		else if (y >= 120 + 24 + 47  * 3 && y <= 120 + 47 + 47 * 3)
+			downCmd[6 - 1] = TRUE;
+		else if (y >= 120 + 24 + 47  * 4 && y <= 120 + 47 + 47 * 4)
+			downCmd[5 - 1] = TRUE;
+		else if (y >= 120 + 24 + 47  * 5 && y <= 120 + 47 + 47 * 5)
+			downCmd[4 - 1] = TRUE;
+		else if (y >= 120 + 24 + 47  * 6 && y <= 120 + 47 + 47 * 6)
+			downCmd[3 - 1] = TRUE;
+		else if (y >= 120 + 24 + 47  * 7 && y <= 120 + 47 + 47 * 7)
+			downCmd[2 - 1] = TRUE;
+		else if (y >= 120 + 24 + 47  * 8 && y <= 120 + 47 + 47 * 8)
+			/*downCmd[1 - 1] = TRUE*/;
+
+	}
+
+
 }
 
 void f6(char ch)  // 键盘敲击
@@ -128,38 +214,56 @@ void f6(char ch)  // 键盘敲击
 
 void f7()  // 计时器
 {
-	;
-	//int fL = 0, fR = 0;			// 开门是否到尽头判断
-	//static int fOpening;		// 开门延时标记
+	if (isOpening)
+	{
+		dOpen();
+		if (EggGetX(g_eggDoorR) >= g_x / 2 + 150)
+		{
+			isOpening = 0;
+			Sleep(INTERVAL_TIME);
+			isClosing = 1;
+		}
+	}
+	else if (isClosing)
+	{
+		dClose();
+		if (EggGetX(g_eggDoorR) <= g_x / 2)
+			isClosing = 0;
+	}
 
-	//if (fOpening) return;		// 开门1秒中
+	if (isUpping)
+	{
+		eUp();
+		if (EggGetY(g_eggminiEle) <= tempY - 47)
+			isUpping = 0;
+	}
+	else if (isDowning)
+	{
+		eDown();
+		if (EggGetY(g_eggminiEle) >= tempY + 47)
+			isDowning = 0;
+	}
 
-	//if (!g_fRequest)			// 没有请求
-	//{
-	//	// 关门
-	//	if (EggGetX(g_eggDoorL) < g_x / 2 - 50)
-	//		EggMove(g_eggDoorL, 1, 0);
-	//	if (EggGetX(g_eggDoorR) > g_x / 2)
-	//		EggMove(g_eggDoorR, -1, 0);
-	//}
-	//else						// 有请求
-	//{
-	//	// 开门
-	//	if (EggGetX(g_eggDoorL) > g_x / 2 - 100)
-	//		EggMove(g_eggDoorL, -1, 0);
-	//	else fL = 1;			// 左门开到尽头了
-	//	if (EggGetX(g_eggDoorR) < g_x / 2 + 50)
-	//		EggMove(g_eggDoorR, 1, 0);
-	//	else fR = 1;			// 右门开到尽头了
+	f3();
+}
 
-	//	if (fL && fR)			// 两个门都开到尽头了
-	//	{
-	//		fOpening = 1;		// 锁定延时
-	//		Sleep(1000);		// 延时1s（Win32 API）
-	//		fOpening = 0;		// 延时解锁
-	//		g_fRequest = 0;		// 取消请求标记
-	//	}
-	//}
+void dOpen(void)
+{
+	EggMove(g_eggDoorL, -5, 0);
+	EggMove(g_eggDoorR, +5, 0);
+}
 
-	//f3();						// 调用f3，把更新后的画面绘制出来
+void dClose(void)
+{
+	EggMove(g_eggDoorL, +5, 0);
+	EggMove(g_eggDoorR, -5, 0);
+}
+
+void eUp(void)
+{
+	EggMove(g_eggminiEle, 0, -1);
+}
+void eDown(void)
+{
+	EggMove(g_eggminiEle, 0, +1);
 }

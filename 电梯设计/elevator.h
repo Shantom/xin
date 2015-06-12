@@ -16,6 +16,9 @@
 #define PAUSE 4
 #define MAXFLOOR 9
 
+#define PAUSE_TIME 5000
+#define INTERVAL_TIME 1947
+
 
 struct cmdList{
 	int floor;
@@ -75,3 +78,28 @@ void f4(int x, int y);
 void f5(int x, int y);
 void f6(char ch);
 void f7();
+
+
+void dOpen(void);
+void dClose(void);
+void eUp(void);
+void eDown(void);
+
+Egg g_eggBG;
+Egg g_eggTitle;
+Egg g_eggDoorL;
+Egg g_eggDoorR;
+Egg g_eggButtonN;
+Egg g_eggButtonUD;
+Egg g_eggWell;
+Egg g_eggminiEle;
+
+int g_x;
+int g_y;
+int tempY;
+BOOL isOpening;
+BOOL isClosing;
+BOOL isUpping;
+BOOL isDowning;
+
+enum timer { OPENING, CLOSING, UPPING, DOWNING };
