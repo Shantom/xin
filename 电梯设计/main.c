@@ -22,8 +22,24 @@
 */
 
 #include "elevator.h"
+
+#ifdef _DEBUG
+#pragma comment (lib, "EggAched.lib")
+#else
+#pragma comment (lib, "EggAche.lib")
+#endif
+
 main()
 {
+	// 设置事件处理函数
+	SetEventHandler(E_CREATE, f1);
+	SetEventHandler(E_CLOSE, f2);
+	SetEventHandler(E_PAINT, f3);
+	SetEventHandler(E_SIZE, f4);
+	SetEventHandler(E_CLICK, f5);
+	SetEventHandler(E_PRESS, f6);
+
+
 	curFloor = 1;
 	state = VACANT;
 	ptr = &head;
@@ -42,12 +58,15 @@ main()
 	puts("\t\t\tWelcome to 1513-A elevator");
 	puts("\t\tPlease select the policy you want to use:");
 	puts("\t\t1:First call first use;\n\t\t2:No extra effort;\n");
+	
+	CreateThread(0, 0, win, NULL, 0, NULL);
 
 	int policy=getchar();
 	fflush(stdin);
 
 	puts("Number 1-9 mean inner commands. \nLetter Q-I mean up commands (1-8),\n S-L mean down commands (2-9)\n");
 	puts("The elevator is in the use.\n");
+
 
 	if (policy == '1')
 	{
@@ -57,6 +76,7 @@ main()
 	{
 		CreateThread(0, 0, input_2, NULL, 0, NULL);
 	}
+
 
 	startTime = time(NULL);
 	curTime = time(NULL);

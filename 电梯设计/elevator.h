@@ -4,6 +4,10 @@
 #include <stdint.h>
 #include <time.h>
 #include <conio.h>
+#include <windows.h>				// 用于Event内核对象
+#include "EggAche.h"
+
+
 
 #define STATE int8_t
 #define VACANT 1
@@ -43,6 +47,7 @@ FILE *file;
 
 DWORD WINAPI input_1(LPVOID parameter);
 DWORD WINAPI input_2(LPVOID parameter);
+DWORD WINAPI win(LPVOID parameter);
 
 
 //状态转换函数
@@ -62,3 +67,11 @@ void control_3(void);//第三策略
 
 
 void outToFile(FILE *);
+
+void f1();
+void f2();
+void f3();
+void f4(int x, int y);
+void f5(int x, int y);
+void f6(char ch);
+void f7();
