@@ -29,6 +29,7 @@
 #pragma comment (lib, "EggAche.lib")
 #endif
 
+HANDLE POLICY;
 main()
 {
 	// 设置事件处理函数
@@ -43,7 +44,7 @@ main()
 	curFloor = 1;
 	state = VACANT;
 	ptr = &head;
-	outPtr =&head;
+	outPtr = &head;
 	prestate = VACANT;
 	file = fopen("output.txt", "w");
 	if (file == NULL)
@@ -58,27 +59,28 @@ main()
 	puts("\t\t\tWelcome to 1513-A elevator");
 	puts("\t\tPlease select the policy you want to use:");
 	puts("\t\t1:First call first use;\n\t\t2:No extra effort;\n");
-	
+
 	CreateThread(0, 0, win, NULL, 0, NULL);
 
-	int policy=getchar();
-	getchar();
-	puts("Number 1-9 mean inner commands. \nLetter Q-I mean up commands (1-8),\n S-L mean down commands (2-9)\n");
-	puts("The elevator is in the use.\n");
+	//POLICY = CreateThread(0, 0, getPolicy, NULL, 0, NULL);
+	//DWORD exitcode;
+	//GetExitCodeThread(POLICY, &exitcode);
+	//while (policy == 0)
+	//	;
+	//ExitThread(exitcode);
+	//CloseHandle(POLICY);
 
+	policy = '1';
 
-	if (policy == '1')
-	{
-		CreateThread(0, 0, input_1, NULL, 0, NULL);
-	}
-	else if (policy == '2')
-	{
-		CreateThread(0, 0, input_2, NULL, 0, NULL);
-	}
+	CreateThread(0, 0, input_2, NULL, 0, NULL);
 
 
 	startTime = time(NULL);
 	curTime = time(NULL);
+
+	puts("Number 1-9 mean inner commands. \nLetter Q-I mean up commands (1-8),\n S-L mean down commands (2-9)\n");
+	puts("The elevator is in the use.\n");
+
 
 	while (1){
 
@@ -86,14 +88,16 @@ main()
 			control_1(); /*根据控制策略确定下一目标楼层，这在state_trans()中要用到 */
 		else if (policy == '2')
 			control_2();
-		else if (policy == '3')
-			control_3();
-	//	else if (policy == '4')
-	//		control_4();
 
 		state_trans(); //根据自动机模型决定此刻电梯的状态 
 		curTime = time(NULL);
 		if (policy != '2' || state != VACANT)
 			outToFile(file);
 	}
+}
+DWORD WINAPI getPolicy(LPVOID parameter)
+{
+
+	policy = getchar();
+	getchar();
 }

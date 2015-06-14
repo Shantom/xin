@@ -18,6 +18,8 @@
 
 #define PAUSE_TIME 5000
 #define INTERVAL_TIME 1947
+#define OPEN_NUMBER 2
+#define POLICY_NUMBER 2
 
 
 struct cmdList{
@@ -29,6 +31,7 @@ struct cmdList{
 BOOL upCmd[8];
 BOOL downCmd[8];
 BOOL innerCmd[9];
+BOOL call[100];
 
 
 struct cmdList head;
@@ -45,11 +48,15 @@ int8_t flag_2;
 time_t curTime;
 time_t startTime;
 FILE *file;
-
+int callNum;
+char policy;
+int i;
 
 
 DWORD WINAPI input_1(LPVOID parameter);
 DWORD WINAPI input_2(LPVOID parameter);
+DWORD WINAPI getPolicy(LPVOID parameter);
+DWORD WINAPI isPolicy(LPVOID parameter);
 DWORD WINAPI win(LPVOID parameter);
 
 
@@ -93,6 +100,17 @@ Egg g_eggButtonN;
 Egg g_eggButtonUD;
 Egg g_eggWell;
 Egg g_eggminiEle;
+char singleButton[12];
+Egg g_eggLight[9];
+Egg g_eggUpLight[8];
+Egg g_eggDownLight[8];
+Egg g_egglight;
+char openBmp[11];
+Egg g_eggopen[OPEN_NUMBER];
+int ranOpen;
+char policyBmp[13];
+Egg g_eggpolicy[POLICY_NUMBER];
+
 
 int g_x;
 int g_y;

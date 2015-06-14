@@ -1,29 +1,55 @@
 #include "elevator.h"
-void control_1(void)
+//void control_1(void)
+//{
+//	if (outPtr->next == NULL)
+//	if (state == VACANT){
+//		puts("The elevator is vacant.");
+//		while (outPtr->next == NULL)
+//			;
+//	}
+//	if (flag_1==1)
+//	{
+//		if (outPtr->next != NULL)
+//		{
+//			struct cmdList *temp = outPtr;
+//			outPtr = outPtr->next;
+//			if (temp!=&head)
+//			free(temp);//防止内存泄露
+//			if (outPtr != NULL)
+//				aimFloor = outPtr->floor;
+//			else
+//				aimFloor = 0;
+//		}
+//		else
+//			aimFloor = 0;
+//	}
+//}
+
+void control_1(void)//yang 
 {
-	if (outPtr->next == NULL)
-	if (state == VACANT){
-		puts("The elevator is vacant.");
-		while (outPtr->next == NULL)
-			;
-	}
-	if (flag_1==1)
-	{
-		if (outPtr->next != NULL)
+
+	for (i = 0; i <= 100 - 1; i++) {
+		if (call[i] != 0)
 		{
-			struct cmdList *temp = outPtr;
-			outPtr = outPtr->next;
-			if (temp!=&head)
-			free(temp);//防止内存泄露
-			if (outPtr != NULL)
-				aimFloor = outPtr->floor;
-			else
-				aimFloor = 0;
+			aimFloor = call[i];
+			if (state == PAUSE && prestate != PAUSE)
+			{
+				call[i] = 0;//提示33行的进入下一个命令
+				innerCmd[aimFloor - 1] = FALSE;
+				upCmd[aimFloor - 1] = FALSE;
+				downCmd[aimFloor - 1] = FALSE;
+				if (call[i + 1] != 0)
+					aimFloor = call[i + 1];
+				else
+					aimFloor = 0;
+
+			}
+			return;
 		}
-		else
-			aimFloor = 0;
 	}
+	aimFloor = 0;
 }
+
 
 void control_2(void)
 {
@@ -81,6 +107,8 @@ void control_2(void)
 	{
 		int tempFloor = 0;
 		int flag = 0;
+		call[i] = 0;
+		++i;
 		innerCmd[curFloor - 1] = FALSE;
 		if (prestate == UP)
 		{
