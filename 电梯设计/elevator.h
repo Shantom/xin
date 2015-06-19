@@ -55,8 +55,8 @@ int i;
 
 DWORD WINAPI input_1(LPVOID parameter);
 DWORD WINAPI input_2(LPVOID parameter);
-DWORD WINAPI getPolicy(LPVOID parameter);
-DWORD WINAPI isPolicy(LPVOID parameter);
+//DWORD WINAPI getPolicy(LPVOID parameter);
+//DWORD WINAPI isPolicy(LPVOID parameter);
 DWORD WINAPI win(LPVOID parameter);
 
 
@@ -115,6 +115,7 @@ Egg g_eggpolicy[POLICY_NUMBER];
 int g_x;
 int g_y;
 int tempY;
+int curY;
 BOOL isOpening;
 BOOL isClosing;
 BOOL isUpping;

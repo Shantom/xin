@@ -81,6 +81,7 @@ main()
 	puts("Number 1-9 mean inner commands. \nLetter Q-I mean up commands (1-8),\n S-L mean down commands (2-9)\n");
 	puts("The elevator is in the use.\n");
 
+	curY = 120 + 8 * 47;
 
 	while (1){
 
@@ -95,9 +96,9 @@ main()
 			outToFile(file);
 	}
 }
-DWORD WINAPI getPolicy(LPVOID parameter)
-{
-
-	policy = getchar();
-	getchar();
-}
+//DWORD WINAPI getPolicy(LPVOID parameter)
+//{
+//
+//	policy = getchar();
+//	getchar();
+//}

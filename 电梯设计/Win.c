@@ -1,15 +1,16 @@
 #include "elevator.h"
 
+void getY(void);
 
 DWORD WINAPI win(LPVOID parameter)
 {
 	if (!HiWindow("1513-A elevator", 1016, 630)){
 		return 0;
 	}
-
+	NewTimer(12, 1, getY);
 
 	getchar();
-
+	return 0;
 }
 
 void f1()  // 窗口初始化事件
@@ -57,9 +58,7 @@ void f1()  // 窗口初始化事件
 
 void f2()  // 窗口销毁事件
 {
-	;
-	//// 停止编号为1的计时器
-	//FreeTimer(1);
+
 
 	// 释放全局Egg资源
 	EggFree(g_eggBG);
@@ -78,14 +77,13 @@ void f2()  // 窗口销毁事件
 	for (i = 0; i < 8; ++i)
 		EggFree(g_eggDownLight[i]);
 	EggFree(g_egglight);
-
+	FreeTimer(12);
 	//// 通知主线程退出（Win32 API）
 	//SetEvent(g_hExit);
 }
 
 void f3()  // 窗口绘图事件
 {
-	;
 	Paper paper;
 	// 产生新的画纸
 	paper = NewPaper();
@@ -145,7 +143,7 @@ void f4(int x, int y)  // 窗口大小更新事件
 	EggPlace(g_eggButtonN, x / 2 + 396, 120);
 	EggPlace(g_eggButtonUD, x / 2 + 359, 120);
 	EggPlace(g_eggWell, x / 2 - 410, 120);
-	EggPlace(g_eggminiEle, x / 2 - 410, 120 + 47 * 8);
+	EggPlace(g_eggminiEle, x / 2 - 410, curY);
 	EggPlace(g_egglight, x / 2 - 373, 120);
 
 	int i;
@@ -176,7 +174,6 @@ void f5(int x, int y)  // 鼠标点击
 	if (x >= g_x / 2 + 300 && x <= g_x / 2 + 468 && y <= 113)
 	{
 		policy = !(policy - '1') + '1';
-		f3();
 	}
 
 	else if (x >= g_x / 2 + 396 && x <= g_x / 2 + 396 + 50)//点到数字
@@ -220,6 +217,7 @@ void f5(int x, int y)  // 鼠标点击
 		}
 
 	}
+	f3();
 
 }
 void f6(char ch)  // 键盘敲击
@@ -284,4 +282,8 @@ void eUp(void)
 void eDown(void)
 {
 	EggMove(g_eggminiEle, 0, +1);
+}
+void getY(void)
+{
+	curY = EggGetY(g_eggminiEle);
 }
